@@ -4,6 +4,7 @@ package com.npci.restaurantapp.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ import com.npci.restaurantapp.entity.Restaurant;
 import com.npci.restaurantapp.exceptions.CommentDescriptionException;
 import com.npci.restaurantapp.exceptions.FoodItemIdException;
 import com.npci.restaurantapp.exceptions.FoodItemNullException;
+import com.npci.restaurantapp.exceptions.RestauranIdFoodItemNullException;
 import com.npci.restaurantapp.exceptions.RestaurantCommentException;
 import com.npci.restaurantapp.exceptions.RestaurantPincodeException;
 
@@ -39,7 +41,7 @@ public class RestaurantServices implements IRestaurantServices{
 	
 	@Override
 	public Restaurant newRestaurant(Restaurant restaurant) {
-		String Pincocoderegx="^[0-9]{1,6}$";
+		String Pincocoderegx="^[0-9]{1,5}$";
 		Integer pincode = restaurant.getPincode();
 		if(String.valueOf(pincode).matches(Pincocoderegx)) {
 			throw new RestaurantPincodeException("Pincode Should be six Digit");
@@ -105,10 +107,30 @@ public class RestaurantServices implements IRestaurantServices{
 		return findByRestaurantIdOrderByCIdAsc;
 	}
 
+	@Override
+	public Stream<List<FoodItem>> getByfirstSNameOrCityOrStateOrPincode(String sName, String city, String state,
+			Integer pincode) {
+		LOGGER.info("Streat Name: {},City: {},State: {},Pincode: {}",sName,city,state,pincode);
+		List<Restaurant> rest = restaurantdao.findBysNameOrCityOrStateOrPincode(sName,city,state,pincode);
+		
+		if(rest.isEmpty()) {
+			throw new RestauranIdFoodItemNullException("OOPS!! No Restaurant ");
+		}
+		
+	Stream<List<FoodItem>> fooditems = rest.stream().map((n)->{
+			List<FoodItem> fooditem =foodItemdao.findByRestaurantId(n.getRestaurantId());
+			return fooditem;
+		});
+	LOGGER.info("List of food item in restaurant:{}",fooditems);
+	
+	return fooditems;
+		
+	}
+
 
 
 	
-
+	
 	
 
 	

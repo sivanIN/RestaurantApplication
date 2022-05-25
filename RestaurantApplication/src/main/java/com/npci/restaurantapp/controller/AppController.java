@@ -1,6 +1,7 @@
 package com.npci.restaurantapp.controller;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.persistence.PostUpdate;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.npci.restaurantapp.entity.Comment;
@@ -77,6 +79,16 @@ public class AppController {
 		
 		
 		
+	}
+	
+	@GetMapping(value = { "/rest/{sName}", "/rest/{sName}/{city}","/rest/{sName}/{city}/{state}","/rest/{sName}/{city}/{state}/{pincode}" })
+	@ResponseBody
+	public ResponseEntity<Stream<List<FoodItem>> > getByfirstSNameOrCityOrStateOrPincode(@PathVariable(required = false) String sName,@PathVariable(required = false) String city ,@PathVariable(required = false) String state,@PathVariable(required = false) Integer pincode)
+	{
+		
+		Stream<List<FoodItem>>  r = irestaurantservices.getByfirstSNameOrCityOrStateOrPincode(sName,city,state,pincode);
+		
+		return new ResponseEntity<>(r,HttpStatus.ACCEPTED);
 	}
 	
 

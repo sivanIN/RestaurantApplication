@@ -1,6 +1,7 @@
 package com.npci.restaurantapp.services;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ public interface IRestaurantServices {
 	 List<Comment>  Comments();
 
 	List<Comment> Comments(Integer restID);
+	 Stream<List<FoodItem>> getByfirstSNameOrCityOrStateOrPincode(String sName, String city, String state, Integer pincode);
 			
 			
 			

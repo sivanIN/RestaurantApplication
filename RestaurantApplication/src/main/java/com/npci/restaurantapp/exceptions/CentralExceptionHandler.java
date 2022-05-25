@@ -54,6 +54,13 @@ public class CentralExceptionHandler {
 		return e.getMessage();
 	}
 	
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(RestauranIdFoodItemNullException.class)
+	public String RestauranIdFoodItemNullException(RestauranIdFoodItemNullException e) {
+		LOGGER.error("Error:{}",e.getMessage());
+		return e.getMessage();
+	}
+	
 	
 
 }
