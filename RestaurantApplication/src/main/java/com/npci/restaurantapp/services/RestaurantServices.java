@@ -62,6 +62,14 @@ public class RestaurantServices implements IRestaurantServices{
 	}
 
 
+	
+	@Override
+	public FoodItem updateFood(FoodItem fooditem) {
+		LOGGER.info("Updating Food for foodId: {}.",fooditem.getItemId());
+		FoodItem save = foodItemdao.save(fooditem);
+		LOGGER.info("Book Id: {} updated.",fooditem.getItemId());
+		return save;
+	}
 
 	@Override
 	public String cutoutFoodUtem(Integer ItemID) {
@@ -72,7 +80,8 @@ public class RestaurantServices implements IRestaurantServices{
 		}
 		
 		foodItemdao.deleteById(ItemID);
-		return "Food Item with ID:" + ItemID +"  deleted Successfully";
+		return "success";
+		
 	}
 
 
@@ -119,6 +128,7 @@ public class RestaurantServices implements IRestaurantServices{
 		
 	Stream<List<FoodItem>> fooditems = rest.stream().map((n)->{
 			List<FoodItem> fooditem =foodItemdao.findByRestaurantId(n.getRestaurantId());
+			
 			return fooditem;
 		});
 	LOGGER.info("List of food item in restaurant:{}",fooditems);

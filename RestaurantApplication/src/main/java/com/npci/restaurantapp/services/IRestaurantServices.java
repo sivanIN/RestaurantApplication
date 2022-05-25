@@ -25,6 +25,8 @@ public interface IRestaurantServices {
 
 	List<Comment> Comments(Integer restID);
 	 Stream<List<FoodItem>> getByfirstSNameOrCityOrStateOrPincode(String sName, String city, String state, Integer pincode);
+
+	FoodItem updateFood(FoodItem fooditem);
 			
 			
 			

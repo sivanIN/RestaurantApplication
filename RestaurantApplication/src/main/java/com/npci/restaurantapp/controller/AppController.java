@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,19 +48,17 @@ public class AppController {
 		
 	}
 	
-//	@PutMapping("/reviseFoodItem")
-//	public ResponseEntity<FoodItem> reviseFoodItem(@RequestBody FoodItem fooditem) {
-//		
-//		
-////		return new ResponseEntity<>(changeUserDateOfBirth,HttpStatus.OK);
-//		
-//	}
+	@PutMapping("/ud")
+	public ResponseEntity<FoodItem> updateFood(@RequestBody FoodItem foodItem) {
+		FoodItem fooditems = irestaurantservices.updateFood(foodItem);
+		return new ResponseEntity<>(fooditems,HttpStatus.ACCEPTED);
+	}
 	
 	@DeleteMapping("/cutoutFoodUtem/{ItemID}")
 	public  ResponseEntity<String> cutoutFoodUtem(@PathVariable(value="ItemID") Integer ItemID ) {
 		String cutoutFoodItem = irestaurantservices.cutoutFoodUtem(ItemID);
 		
-		return new ResponseEntity<>(cutoutFoodItem,HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(cutoutFoodItem ,HttpStatus.NO_CONTENT);
 		
 
 	}
