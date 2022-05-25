@@ -55,9 +55,9 @@ public class AppController {
 	
 	@DeleteMapping("/cutoutFoodUtem/{ItemID}")
 	public  ResponseEntity<String> cutoutFoodUtem(@PathVariable(value="ItemID") Integer ItemID ) {
-		String cutoutFoodUtem = irestaurantservices.cutoutFoodUtem(ItemID);
+		String cutoutFoodItem = irestaurantservices.cutoutFoodUtem(ItemID);
 		
-		return new ResponseEntity<>(cutoutFoodUtem,HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(cutoutFoodItem,HttpStatus.NO_CONTENT);
 		
 
 	}
@@ -70,9 +70,9 @@ public class AppController {
 		
 	}
 	
-	@GetMapping("/Comments")
-	public ResponseEntity<List<Comment>> Comments(){
-		List<Comment> comments = irestaurantservices.Comments();
+	@GetMapping("/Comments/{restID}")
+	public ResponseEntity<List<Comment>> Comments(@PathVariable(value="restID") Integer restID){
+		List<Comment> comments = irestaurantservices.Comments(restID);
 		return new ResponseEntity<>(comments,HttpStatus.ACCEPTED);
 		
 		

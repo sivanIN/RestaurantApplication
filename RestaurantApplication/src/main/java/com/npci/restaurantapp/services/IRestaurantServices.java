@@ -21,6 +21,8 @@ public interface IRestaurantServices {
 	 Comment newComment( Comment comment);
 	 
 	 List<Comment>  Comments();
+
+	List<Comment> Comments(Integer restID);
 			
 			
 			

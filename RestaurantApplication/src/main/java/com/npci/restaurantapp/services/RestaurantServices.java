@@ -3,6 +3,7 @@ package com.npci.restaurantapp.services;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,9 @@ public class RestaurantServices implements IRestaurantServices{
 	
 	@Autowired
 	RestaurantDao restaurantdao;
+	@Autowired
 	FoodItemDao foodItemdao;
+	@Autowired
 	CommentDao commentdao;
 
 	@Override
@@ -60,9 +63,22 @@ public class RestaurantServices implements IRestaurantServices{
 
 	@Override
 	public List<Comment> Comments() {
-		List<Comment> findAll = commentdao.findAll();
-		return findAll;
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	@Override
+	public List<Comment> Comments(Integer restID) {
+		List<Comment> findByRestaurantIdOrderByCIdAsc = commentdao.findByRestaurantIdOrderByCIdDesc(restID);
+		return findByRestaurantIdOrderByCIdAsc;
+	}
+
+
+
+	
+
+	
+
 	
 	
 
